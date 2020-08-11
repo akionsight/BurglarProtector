@@ -1,7 +1,7 @@
 import os
 import cv2  # Video Capture, Person Recognition
 import sirenPlayer
-
+import dbWriter
 
 def detect_faces_from_webcam(webcam_index=0, window_title='Faces In Video', cascade='haarcascade_frontalface_default.xml',box_colour=(0, 255, 0), line_thickness=2):
     face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + cascade)
@@ -14,7 +14,7 @@ def detect_faces_from_webcam(webcam_index=0, window_title='Faces In Video', casc
         for (x, y, w, h) in bodies:
             cv2.rectangle(frame, (x,y), (x+w, y+h), box_colour, line_thickness)
             sirenPlayer.playSiren()
-
+            dbWriter.insert()
         cv2.imshow(window_title, frame)
         k = cv2.waitKey(1)
         if k == 27:
